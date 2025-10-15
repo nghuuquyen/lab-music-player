@@ -625,3 +625,322 @@ Cấu trúc HTML gợi ý cho toàn bộ phần nội dung:
   font-size: 0.85rem;
 }
 ```
+
+## 3. Right Bar – Thanh thông tin bên phải
+### 3.1 Mục tiêu:
+Xây dựng thanh sidebar bên phải chứa các thông tin bổ sung và tương tác nhanh, bao gồm tìm kiếm, nghệ sĩ phổ biến, podcast nổi bật, và hàng đợi phát nhạc.
+
+### 3.2 Phân tích Design:
+Right Bar được chia thành 4 phần chính từ trên xuống dưới:
+
+1. **Search Bar:** Thanh tìm kiếm với icon ở bên phải
+2. **Popular Artists:** Lưới các nghệ sĩ phổ biến dạng 3x2
+3. **Top Podcasts:** Danh sách podcast ngang có thể scroll
+4. **Next in Queue:** Hàng đợi bài hát tiếp theo
+
+### 3.3 Cấu trúc HTML:
+```html
+<aside class="rightbar">
+    <!-- Search Bar -->
+    <div class="search-bar">
+        <input type="text" placeholder="Search for something">
+        <i class="fa-solid fa-magnifying-glass search-icon"></i>
+    </div>
+
+    <!-- Popular Artists -->
+    <section class="popular-artists">
+        <h3>Popular Artists</h3>
+        <div class="artists-grid">
+            <div class="artist-card">
+                <img src="https://i.pravatar.cc/80?img=1" alt="Sarah Melody">
+                <span class="artist-name">Sarah Melody</span>
+            </div>
+            <div class="artist-card">
+                <img src="https://i.pravatar.cc/80?img=2" alt="Javier Cruz">
+                <span class="artist-name">Javier Cruz</span>
+            </div>
+            <!-- Thêm các nghệ sĩ khác... -->
+        </div>
+    </section>
+
+    <!-- Top Podcasts -->
+    <section class="top-podcasts">
+        <h3>Top Podcasts</h3>
+        <div class="podcasts-list">
+            <div class="podcast-card">
+                <img src="https://placehold.co/100x100?text=P1" alt="Podcast 1">
+                <h4>Mindful Musings</h4>
+            </div>
+            <div class="podcast-card">
+                <img src="https://placehold.co/100x100?text=P2" alt="Podcast 2">
+                <h4>The Creative</h4>
+            </div>
+            <!-- Thêm các podcast khác... -->
+        </div>
+    </section>
+
+    <!-- Next in Queue -->
+    <section class="next-queue">
+        <h3>Next in Queue</h3>
+        <div class="queue-list">
+            <div class="queue-item">
+                <img src="https://placehold.co/50x50?text=Q1" alt="Queue 1">
+                <div class="song-info">
+                    <h4>Eternal Echoes</h4>
+                    <p>Sarah Melody</p>
+                </div>
+                <span class="time">04:32</span>
+                <i class="fa-solid fa-heart queue-heart active"></i>
+            </div>
+            <!-- Thêm các bài hát khác... -->
+        </div>
+    </section>
+</aside>
+```
+
+### 3.4 CSS chi tiết:
+```css
+/*
+* --------------------------
+* Right Bar
+* --------------------------
+*/
+.rightbar {
+  background-color: var(--color-bg);
+  border-radius: 20px;
+  padding: 20px;
+  width: 280px;
+  border: 1px solid var(--color-border);
+  color: var(--color-text);
+  transition: background-color 0.3s, color 0.3s;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  height: fit-content;
+}
+
+.rightbar h3 {
+  margin: 0 0 15px 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+/* Search Bar */
+.search-bar {
+  position: relative;
+  margin-bottom: 10px;
+}
+
+.search-bar input {
+  width: 100%;
+  padding: 10px 40px 10px 15px;
+  border: 1px solid var(--color-border);
+  border-radius: 25px;
+  background-color: var(--color-card);
+  color: var(--color-text);
+  font-size: 0.9rem;
+  outline: none;
+  transition: border-color 0.3s, background-color 0.3s;
+}
+
+.search-bar input::placeholder {
+  color: var(--color-muted);
+}
+
+.search-bar input:focus {
+  border-color: var(--color-primary);
+}
+
+.search-icon {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--color-muted);
+  font-size: 0.9rem;
+}
+
+/* Popular Artists */
+.popular-artists .artists-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+}
+
+.artist-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.artist-card:hover {
+  transform: translateY(-2px);
+}
+
+.artist-card img {
+  width: 60px;
+  height: 60px;
+  border-radius: 10px;
+  object-fit: cover;
+  margin-bottom: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.artist-name {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--color-text);
+  line-height: 1.2;
+}
+
+/* Top Podcasts */
+.podcasts-list {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  padding-bottom: 5px;
+}
+
+.podcasts-list::-webkit-scrollbar {
+  height: 4px;
+}
+
+.podcasts-list::-webkit-scrollbar-track {
+  background: var(--color-border);
+  border-radius: 2px;
+}
+
+.podcasts-list::-webkit-scrollbar-thumb {
+  background: var(--color-muted);
+  border-radius: 2px;
+}
+
+.podcast-card {
+  flex: 0 0 auto;
+  width: 100px;
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.podcast-card:hover {
+  transform: translateY(-2px);
+}
+
+.podcast-card img {
+  width: 100px;
+  height: 100px;
+  border-radius: 12px;
+  object-fit: cover;
+  margin-bottom: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.podcast-card h4 {
+  margin: 0;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--color-text);
+  line-height: 1.2;
+}
+
+/* Next in Queue */
+.queue-list {
+  margin-top: 1rem;
+}
+
+.queue-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  background: var(--color-card);
+  border-radius: 10px;
+  padding: 10px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.queue-item:hover {
+  background-color: var(--color-border);
+}
+
+.queue-item img {
+  width: 50px;
+  height: 50px;
+  border-radius: 6px;
+  object-fit: cover;
+}
+
+.queue-item .song-info {
+  flex: 1;
+}
+
+.queue-item .song-info h4 {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.queue-item .song-info p {
+  margin: 0;
+  color: var(--color-muted);
+  font-size: 0.8rem;
+}
+
+.queue-item .time {
+  color: var(--color-muted);
+  font-size: 0.8rem;
+  margin-right: 10px;
+}
+
+.queue-heart {
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: color 0.2s ease;
+  color: var(--color-muted);
+}
+
+.queue-heart.active {
+  color: var(--color-primary);
+}
+
+.queue-heart:hover {
+  color: var(--color-primary);
+}
+```
+
+### 3.5 Các điểm kỹ thuật quan trọng:
+
+**1. Search Bar:**
+- Sử dụng `position: relative` cho container và `position: absolute` cho icon
+- Input có `padding-right` để tạo không gian cho icon search
+- Focus state với border màu primary để tăng UX
+
+**2. Popular Artists Grid:**
+- Layout 3 cột bằng `grid-template-columns: repeat(3, 1fr)`
+- Ảnh nghệ sĩ dạng vuông có `border-radius: 10px` (không tròn)
+- Hiệu ứng hover nhẹ nhàng với `transform: translateY(-2px)`
+
+**3. Top Podcasts Scroll:**
+- `display: flex` với `overflow-x: auto` cho scroll ngang
+- `flex: 0 0 auto` để các card không bị co lại
+- Custom scrollbar styling cho webkit browsers
+- Card layout dọc với ảnh trên và text dưới
+
+**4. Next in Queue:**
+- Tái sử dụng cấu trúc tương tự như Recent Items trong main content
+- Layout: ảnh → thông tin → thời lượng → icon heart
+- Icon heart có 2 trạng thái: active (đổ màu) và inactive (outline)
+
+### 3.6 Lưu ý khi triển khai:
+- Right bar có chiều rộng cố định 280px để cân bằng với sidebar
+- Sử dụng `gap: 30px` giữa các section để tạo không gian thở
+- Tất cả component đều responsive với theme system (light/dark mode)
+- Hover effects nhất quán trong toàn bộ right bar
+- Icon sử dụng Font Awesome để đồng bộ với phần còn lại của app
+
+**Kết quả:** Sau khi hoàn thành phần này, các em sẽ có một right bar hoàn chỉnh với đầy đủ tính năng tương tác, góp phần hoàn thiện giao diện music player theo đúng thiết kế mong muốn!

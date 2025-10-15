@@ -399,3 +399,215 @@
   color: var(--color-muted);
   font-size: 0.85rem;
 }
+
+/*
+* --------------------------
+* Right Bar
+* --------------------------
+*/
+.rightbar {
+  background-color: var(--color-bg);
+  border-radius: 20px;
+  padding: 20px;
+  width: 280px;
+  border: 1px solid var(--color-border);
+  color: var(--color-text);
+  transition: background-color 0.3s, color 0.3s;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  height: fit-content;
+}
+
+/* Search Bar */
+.search-bar {
+  position: relative;
+  margin-bottom: 10px;
+}
+
+.search-bar input {
+  width: 100%;
+  padding: 10px 40px 10px 15px;
+  border: 1px solid var(--color-border);
+  border-radius: 25px;
+  background-color: var(--color-card);
+  color: var(--color-text);
+  font-size: 0.9rem;
+  outline: none;
+  transition: border-color 0.3s, background-color 0.3s;
+}
+
+.search-bar input::placeholder {
+  color: var(--color-muted);
+}
+
+.search-bar input:focus {
+  border-color: var(--color-primary);
+}
+
+.search-icon {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--color-muted);
+  font-size: 0.9rem;
+}
+
+.rightbar h3 {
+  margin: 0 0 15px 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+/* Popular Artists */
+.popular-artists .artists-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+}
+
+.artist-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.artist-card:hover {
+  transform: translateY(-2px);
+}
+
+.artist-card img {
+  width: 60px;
+  height: 60px;
+  border-radius: 10px;
+  object-fit: cover;
+  margin-bottom: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.artist-name {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--color-text);
+  line-height: 1.2;
+}
+
+/* Top Podcasts */
+.podcasts-list {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  padding-bottom: 5px;
+}
+
+.podcasts-list::-webkit-scrollbar {
+  height: 4px;
+}
+
+.podcasts-list::-webkit-scrollbar-track {
+  background: var(--color-border);
+  border-radius: 2px;
+}
+
+.podcasts-list::-webkit-scrollbar-thumb {
+  background: var(--color-muted);
+  border-radius: 2px;
+}
+
+.podcast-card {
+  flex: 0 0 auto;
+  width: 100px;
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.podcast-card:hover {
+  transform: translateY(-2px);
+}
+
+.podcast-card img {
+  width: 100px;
+  height: 100px;
+  border-radius: 12px;
+  object-fit: cover;
+  margin-bottom: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.podcast-card h4 {
+  margin: 0;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--color-text);
+  line-height: 1.2;
+}
+
+/* Next in Queue */
+.queue-list {
+  margin-top: 1rem;
+}
+
+.queue-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  background: var(--color-card);
+  border-radius: 10px;
+  padding: 10px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.queue-item:hover {
+  background-color: var(--color-border);
+}
+
+.queue-item img {
+  width: 50px;
+  height: 50px;
+  border-radius: 6px;
+  object-fit: cover;
+}
+
+.queue-item .song-info {
+  flex: 1;
+}
+
+.queue-item .song-info h4 {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.queue-item .song-info p {
+  margin: 0;
+  color: var(--color-muted);
+  font-size: 0.8rem;
+}
+
+.queue-item .time {
+  color: var(--color-muted);
+  font-size: 0.8rem;
+  margin-right: 10px;
+}
+
+.queue-heart {
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: color 0.2s ease;
+  color: var(--color-muted);
+}
+
+.queue-heart.active {
+  color: var(--color-primary);
+}
+
+.queue-heart:hover {
+  color: var(--color-primary);
+}
