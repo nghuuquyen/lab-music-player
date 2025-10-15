@@ -709,7 +709,6 @@ Right Bar được chia thành 4 phần chính từ trên xuống dưới:
   background-color: var(--color-bg);
   border-radius: 20px;
   padding: 20px;
-  width: 280px;
   border: 1px solid var(--color-border);
   color: var(--color-text);
   transition: background-color 0.3s, color 0.3s;
@@ -913,34 +912,306 @@ Right Bar được chia thành 4 phần chính từ trên xuống dưới:
 }
 ```
 
-### 3.5 Các điểm kỹ thuật quan trọng:
+## 4. Player Bar – Thanh điều khiển phát nhạc
+### 4.1 Mục tiêu:
+Xây dựng thanh player bar cố định ở cuối màn hình - đây chính là "trái tim" của ứng dụng nghe nhạc. Player bar sẽ chứa toàn bộ thông tin và điều khiển cho bài hát đang phát.
 
-**1. Search Bar:**
-- Sử dụng `position: relative` cho container và `position: absolute` cho icon
-- Input có `padding-right` để tạo không gian cho icon search
-- Focus state với border màu primary để tăng UX
+### 4.2 Phân tích Design:
+Dựa theo thiết kế, player bar được chia thành 3 phần chính theo chiều ngang:
 
-**2. Popular Artists Grid:**
-- Layout 3 cột bằng `grid-template-columns: repeat(3, 1fr)`
-- Ảnh nghệ sĩ dạng vuông có `border-radius: 10px` (không tròn)
-- Hiệu ứng hover nhẹ nhàng với `transform: translateY(-2px)`
+1. **Current Song Info (Bên trái):** Hiển thị ảnh cover, tên bài hát, nghệ sĩ và nút yêu thích
+2. **Player Controls (Giữa):** Các nút điều khiển phát nhạc và thanh tiến độ
+3. **Right Controls (Bên phải):** Danh sách phát, âm lượng và fullscreen
 
-**3. Top Podcasts Scroll:**
-- `display: flex` với `overflow-x: auto` cho scroll ngang
-- `flex: 0 0 auto` để các card không bị co lại
-- Custom scrollbar styling cho webkit browsers
-- Card layout dọc với ảnh trên và text dưới
+**Đặc điểm thiết kế nổi bật:**
+- Background gradient xanh dương (màu primary của app)
+- Text màu trắng để tương phản với nền
+- Các button có hiệu ứng hover
+- Progress bar interactive với handle xuất hiện khi hover
+- Layout responsive, ưu tiên phần controls ở giữa
 
-**4. Next in Queue:**
-- Tái sử dụng cấu trúc tương tự như Recent Items trong main content
-- Layout: ảnh → thông tin → thời lượng → icon heart
-- Icon heart có 2 trạng thái: active (đổ màu) và inactive (outline)
+### 4.3 Cấu trúc HTML:
+```html
+<footer class="player-bar">
+    <!-- Current Song Info -->
+    <div class="current-song">
+        <img src="https://placehold.co/60x60?text=CS" alt="Current Song" class="song-cover">
+        <div class="song-details">
+            <h4 class="song-title">Rhythmic Echoes</h4>
+            <p class="song-artist">Alex Harmon</p>
+        </div>
+        <i class="fa-regular fa-heart song-heart"></i>
+    </div>
 
-### 3.6 Lưu ý khi triển khai:
-- Right bar có chiều rộng cố định 280px để cân bằng với sidebar
-- Sử dụng `gap: 30px` giữa các section để tạo không gian thở
-- Tất cả component đều responsive với theme system (light/dark mode)
-- Hover effects nhất quán trong toàn bộ right bar
-- Icon sử dụng Font Awesome để đồng bộ với phần còn lại của app
+    <!-- Player Controls -->
+    <div class="player-controls">
+        <div class="control-buttons">
+            <button class="control-btn">
+                <i class="fa-solid fa-backward-step"></i>
+            </button>
+            <button class="control-btn">
+                <i class="fa-solid fa-backward"></i>
+            </button>
+            <button class="play-pause-btn">
+                <i class="fa-solid fa-pause"></i>
+            </button>
+            <button class="control-btn">
+                <i class="fa-solid fa-forward"></i>
+            </button>
+            <button class="control-btn">
+                <i class="fa-solid fa-forward-step"></i>
+            </button>
+        </div>
+        
+        <div class="progress-section">
+            <span class="current-time">03:19</span>
+            <div class="progress-bar">
+                <div class="progress-track">
+                    <div class="progress-fill" style="width: 65%;"></div>
+                    <div class="progress-handle"></div>
+                </div>
+            </div>
+            <span class="total-time">05:08</span>
+        </div>
+    </div>
 
-**Kết quả:** Sau khi hoàn thành phần này, các em sẽ có một right bar hoàn chỉnh với đầy đủ tính năng tương tác, góp phần hoàn thiện giao diện music player theo đúng thiết kế mong muốn!
+    <!-- Right Controls -->
+    <div class="right-controls">
+        <button class="control-btn">
+            <i class="fa-solid fa-list"></i>
+        </button>
+        <button class="control-btn">
+            <i class="fa-solid fa-volume-high"></i>
+        </button>
+        <div class="volume-bar">
+            <div class="volume-track">
+                <div class="volume-fill" style="width: 80%;"></div>
+            </div>
+        </div>
+        <button class="control-btn">
+            <i class="fa-solid fa-up-right-and-down-left-from-center"></i>
+        </button>
+    </div>
+</footer>
+```
+
+### 4.4 CSS chi tiết:
+```css
+/*
+* --------------------------
+* Player Bar
+* --------------------------
+*/
+.player-bar {
+  background: linear-gradient(135deg, var(--color-primary) 0%, #4a90e2 100%);
+  padding: 15px 25px;
+  border-radius: 20px 20px 0 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 25px;
+  color: #fff;
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Current Song Section */
+.current-song {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  min-width: 250px;
+}
+
+.song-cover {
+  width: 50px;
+  height: 50px;
+  border-radius: 8px;
+  object-fit: cover;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.song-details {
+  flex: 1;
+}
+
+.song-title {
+  margin: 0 0 4px 0;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #fff;
+}
+
+.song-artist {
+  margin: 0;
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.song-heart {
+  font-size: 1.1rem;
+  cursor: pointer;
+  color: rgba(255, 255, 255, 0.8);
+  transition: color 0.2s ease;
+}
+
+.song-heart:hover,
+.song-heart.active {
+  color: #fff;
+}
+
+/* Player Controls */
+.player-controls {
+  flex: 1;
+  max-width: 500px;
+}
+
+.control-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 12px;
+}
+
+.control-btn {
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.control-btn:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.play-pause-btn {
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  color: #fff;
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 12px;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 45px;
+  height: 45px;
+}
+
+.play-pause-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(1.05);
+}
+
+/* Progress Section */
+.progress-section {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.current-time,
+.total-time {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.8);
+  min-width: 35px;
+  text-align: center;
+}
+
+.progress-bar {
+  flex: 1;
+  cursor: pointer;
+}
+
+.progress-track {
+  position: relative;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: #fff;
+  border-radius: 3px;
+  position: relative;
+  transition: width 0.1s ease;
+}
+
+.progress-handle {
+  position: absolute;
+  right: -6px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 12px;
+  height: 12px;
+  background: #fff;
+  border-radius: 50%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.progress-bar:hover .progress-handle {
+  opacity: 1;
+}
+
+/* Right Controls */
+.right-controls {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  min-width: 200px;
+  justify-content: flex-end;
+}
+
+.volume-bar {
+  width: 80px;
+}
+
+.volume-track {
+  position: relative;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+.volume-fill {
+  height: 100%;
+  background: #fff;
+  border-radius: 2px;
+  transition: width 0.1s ease;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .player-bar {
+    padding: 12px 20px;
+    gap: 15px;
+  }
+  
+  .current-song {
+    min-width: auto;
+  }
+  
+  .right-controls {
+    min-width: auto;
+  }
+  
+  .volume-bar {
+    display: none;
+  }
+}
+```

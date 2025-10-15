@@ -277,7 +277,67 @@
                 </div>
             </section>
         </aside>
-        <footer class="player-bar"> ... </footer>
+        <footer class="player-bar">
+            <!-- Current Song Info -->
+            <div class="current-song">
+                <img src="https://placehold.co/60x60?text=CS" alt="Current Song" class="song-cover">
+                <div class="song-details">
+                    <h4 class="song-title">Rhythmic Echoes</h4>
+                    <p class="song-artist">Alex Harmon</p>
+                </div>
+                <i class="fa-regular fa-heart song-heart"></i>
+            </div>
+
+            <!-- Player Controls -->
+            <div class="player-controls">
+                <div class="control-buttons">
+                    <button class="control-btn">
+                        <i class="fa-solid fa-backward-step"></i>
+                    </button>
+                    <button class="control-btn">
+                        <i class="fa-solid fa-backward"></i>
+                    </button>
+                    <button class="play-pause-btn">
+                        <i class="fa-solid fa-pause"></i>
+                    </button>
+                    <button class="control-btn">
+                        <i class="fa-solid fa-forward"></i>
+                    </button>
+                    <button class="control-btn">
+                        <i class="fa-solid fa-forward-step"></i>
+                    </button>
+                </div>
+
+                <div class="progress-section">
+                    <span class="current-time">03:19</span>
+                    <div class="progress-bar">
+                        <div class="progress-track">
+                            <div class="progress-fill" style="width: 65%;"></div>
+                            <div class="progress-handle"></div>
+                        </div>
+                    </div>
+                    <span class="total-time">05:08</span>
+                </div>
+            </div>
+
+            <!-- Right Controls -->
+            <div class="right-controls">
+                <button class="control-btn">
+                    <i class="fa-solid fa-list"></i>
+                </button>
+                <button class="control-btn">
+                    <i class="fa-solid fa-volume-high"></i>
+                </button>
+                <div class="volume-bar">
+                    <div class="volume-track">
+                        <div class="volume-fill" style="width: 80%;"></div>
+                    </div>
+                </div>
+                <button class="control-btn">
+                    <i class="fa-solid fa-up-right-and-down-left-from-center"></i>
+                </button>
+            </div>
+        </footer>
     </div>
 </body>
 
