@@ -1,0 +1,23 @@
+/* base.css */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --font-main: "Inter", sans-serif;
+  --color-bg: #f5f5f5;
+  --color-text: #111;
+  --color-card: #fff;
+  --color-primary: #3b82f6;
+  --color-border: #e5e7eb;
+}
+
+/* Dark theme */
+[data-theme="dark"] {
+  --color-bg: #0f172a;
+  --color-text: #e2e8f0;
+  --color-card: #1e293b;
+  --color-border: #334155;
+}
