@@ -1,12 +1,14 @@
+# Section 1 – Phân tích giao diện và tổ chức source code
+
 Chào các em,
 Trong bài học hôm nay, chúng ta sẽ cùng thực hành xây dựng giao diện ứng dụng nghe nhạc giống như các hình mẫu mà thầy đã trình chiếu trên lớp — gồm Dark Mode và Light Mode.
 Mục tiêu là giúp các em hiểu quy trình phát triển giao diện web một cách có hệ thống, thay vì chỉ viết mã theo cảm tính.
 
-# BƯỚC 1 — PHÂN TÍCH GIAO DIỆN (UI Analysis)
+## BƯỚC 1 — PHÂN TÍCH GIAO DIỆN (UI Analysis)
 
 Trước khi bắt tay vào code, việc đầu tiên chúng ta phải làm là phân tích giao diện.
 
-## 1.1. Mục tiêu của bài thực hành
+### 1.1. Mục tiêu của bài thực hành
 
 Sau bài này, các em cần nắm được:
 
@@ -16,7 +18,7 @@ Sau bài này, các em cần nắm được:
 - Áp dụng Font Awesome để thêm icon chuyên nghiệp.
 - Tạo Dark Mode / Light Mode bằng biến CSS mà không cần JavaScript.
 
-## 1.2. Cấu trúc bố cục giao diện
+### 1.2. Cấu trúc bố cục giao diện
 
 Giao diện mẫu có tên "Circle Music Player", gồm 2 phiên bản: Light Mode và Dark Mode.
 
@@ -35,7 +37,7 @@ Nhìn vào giao diện mẫu, ta chia trang thành 4 vùng rõ ràng:
 | **Sidebar phải**       | Search, Artist, Podcast, Queue | Grid/Flex                |
 | **Footer (Player)**    | Thanh phát nhạc cố định        | Flexbox + position fixed |
 
-# BƯỚC 2 — TỔ CHỨC SOURCE CODE
+## BƯỚC 2 — TỔ CHỨC SOURCE CODE
 
 Thầy muốn các em làm việc có cấu trúc, giống như một lập trình viên chuyên nghiệp.
 Hãy tạo thư mục dự án như sau:
@@ -56,7 +58,7 @@ music-player/
 ```
 Các em chưa cần viết mã vội. Hãy tạo khung thư mục trước, để hình thành tư duy “dự án phải có tổ chức”.
 
-# BƯỚC 3 — CẤU HÌNH CƠ SỞ CSS (BASE LAYER)
+## BƯỚC 3 — CẤU HÌNH CƠ SỞ CSS (BASE LAYER)
 
 Trước tiên, ta tạo file `css/base.css` để khai báo font, reset và biến màu.
 
@@ -88,7 +90,7 @@ Trước tiên, ta tạo file `css/base.css` để khai báo font, reset và bi�
 
 Khi chúng ta đổi thuộc tính `data-theme="dark"` trên `<body>`, toàn bộ màu sắc của trang sẽ thay đổi tự động. Đây là nền tảng cho Dark/Light mode.
 
-# BƯỚC 4 — DỰNG KHUNG LAYOUT CHÍNH
+## BƯỚC 4 — DỰNG KHUNG LAYOUT CHÍNH
 
 Trong file `index.html`, các em tạo khung layout gồm 4 phần:
 
@@ -157,9 +159,9 @@ Bây giờ chúng ta định nghĩa bố cục bằng CSS Grid trong `layout.css
 
 Sau bước này, các em sẽ thấy bố cục chia thành 3 cột rõ ràng, có khung player ở dưới.
 
-# BƯỚC 5 — XÂY DỰNG COMPONENT
+## BƯỚC 5 — XÂY DỰNG COMPONENT
 
-## 5.1. Sidebar Navigation
+### 5.1. Sidebar Navigation
 
 Thêm đoạn sau vào phần `<aside class="sidebar">`:
 
@@ -204,7 +206,7 @@ CSS trong `components.css`:
 }
 ```
 
-## 5.2. Album Card
+### 5.2. Album Card
 
 Trong `<main class="main-content">`:
 
@@ -252,7 +254,7 @@ CSS trong `components.css`:
 }
 ```
 
-# BƯỚC 6 — CHUYỂN DARK / LIGHT MODE
+## BƯỚC 6 — CHUYỂN DARK / LIGHT MODE
 
 Để đổi giao diện, các em chỉ cần đổi thuộc tính:
 
@@ -260,7 +262,7 @@ CSS trong `components.css`:
 <body data-theme="dark">...</body>
 ```
 
-# NHẬN XÉT
+## NHẬN XÉT
 
 Ở phần trên, các em đã cùng thầy đi qua toàn bộ quy trình hình dung và tổ chức một giao diện phức tạp, từ khâu phân tích thiết kế cho đến xây dựng cấu trúc mã nguồn. Cụ thể, chúng ta đã:
 
