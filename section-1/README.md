@@ -130,6 +130,7 @@ Bây giờ chúng ta định nghĩa bố cục bằng CSS Grid trong `layout.css
   background: var(--color-bg);
   color: var(--color-text);
   font-family: var(--font-main);
+  overflow: hidden;
 }
 
 .sidebar {
@@ -139,9 +140,16 @@ Bây giờ chúng ta định nghĩa bố cục bằng CSS Grid trong `layout.css
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  max-height: 100%;
+  overflow-y: auto;
 }
 
-.main-content, .rightbar {
+.rightbar {
+  max-height: 100%;
+}
+
+.main-content,
+.rightbar {
   padding: 2rem;
   overflow-y: auto;
 }
@@ -155,7 +163,31 @@ Bây giờ chúng ta định nghĩa bố cục bằng CSS Grid trong `layout.css
   justify-content: space-between;
   padding: 1rem 2rem;
 }
+
+/* Hide scrollbars but allow scrolling */
+.sidebar,
+.rightbar,
+.main-content {
+  overflow-y: auto;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE 10+ */
+}
+
+.sidebar::-webkit-scrollbar,
+.rightbar::-webkit-scrollbar,
+.main-content::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
 ```
+
+Đoạn code layout trên được hiểu như sau:
+- `.app` sử dụng CSS Grid để chia bố cục thành 3 cột và 2 hàng. Cột trái rộng 250px, cột giữa chiếm phần còn lại, cột phải rộng 320px. Hàng dưới cùng dành cho thanh Player.
+- `.sidebar` chiếm toàn bộ chiều cao 2 hàng bên trái, dùng Flexbox để sắp xếp nội dung theo cột.
+- `.main-content` và `.rightbar` có padding và cho phép cuộn nội dung.
+- `.player-bar` nằm ở dưới cùng, trải dài 2 cột bên phải, dùng Flexbox để căn chỉnh các phần tử bên trong.
+- Các phần tử trong `.sidebar`, `.main-content`, và `.rightbar` đều có khả năng cuộn nội dung khi vượt quá chiều cao.
+- Các thanh cuộn sẽ bị ẩn đi để tạo sự liền mạch cho giao diện.
+- `.player-bar` nằm ở dưới cùng, trải dài 2 cột bên phải, dùng Flexbox để căn chỉnh các phần tử bên trong.
 
 Sau bước này, các em sẽ thấy bố cục chia thành 3 cột rõ ràng, có khung player ở dưới.
 

@@ -94,9 +94,9 @@ CSS gợi ý:
 }
 
 .circle-icon {
-  width: 20px;
-  height: 20px;
-  border: 4px solid var(--color-text);
+  width: 40px;
+  height: 40px;
+  border: 10px solid var(--color-text);
   border-top-color: transparent;
   border-radius: 50%;
   rotate: 45deg;
@@ -105,6 +105,7 @@ CSS gợi ý:
 
 .logo-text {
   font-weight: 600;
+  font-size: 25px;
 }
 
 /* Menu */
